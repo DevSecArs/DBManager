@@ -63,6 +63,10 @@ class CRUD:
 """ Класс для управления базами данных """
 class DataBaseManager:
     
+    def exists(name:str):
+        if (isfile(f"{name}.txt")): return True
+        else: return False
+
     """ Создание текстовой базы данных """
     @staticmethod
     def create(name:str):
@@ -75,7 +79,7 @@ class DataBaseManager:
     @staticmethod
     def read():
         filenames = next(walk("./"), (None, None, []))[2]
-        databases = [db for db in filenames if ".txt" in db]
+        databases = [db[:db.rfind(".")] for db in filenames if ".txt" in db]
         print("Существующие базы данных:", *databases, sep="\n\t- ")
 
     """ Обновление структуры базы данных """
@@ -89,5 +93,6 @@ class DataBaseManager:
         if (not isfile(f"{name}.txt")):
             return False
         remove(f"./{name}.txt")
+        return True
 
 
