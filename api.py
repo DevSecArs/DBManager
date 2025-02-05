@@ -1,6 +1,7 @@
 from tempfile import mkstemp
 from shutil import move, copymode
-from os import fdopen, remove
+from os import fdopen, remove, walk
+from os.path import isfile
 
 """ Класс для работы с данными внутри базы данных """
 class CRUD:
@@ -65,12 +66,17 @@ class DataBaseManager:
     """ Создание текстовой базы данных """
     @staticmethod
     def create(name:str):
-        pass
+        if (isfile(f"{name}.txt")):
+            return False
+        with open(f"{name}.txt", "w", encoding="utf-8") as file:
+            return True
 
     """ Показ существующих баз данных и их структуры """
     @staticmethod
     def read():
-        pass
+        filenames = next(walk("./"), (None, None, []))[2]
+        databases = [db for db in filenames if ".txt" in db]
+        print("Существующие базы данных:", *databases, sep="\n\t- ")
 
     """ Обновление структуры базы данных """
     @staticmethod
@@ -80,6 +86,8 @@ class DataBaseManager:
     """ Удаленние базы данных """
     @staticmethod
     def delete(name):
-        pass
+        if (not isfile(f"{name}.txt")):
+            return False
+        remove(f"./{name}.txt")
 
 
