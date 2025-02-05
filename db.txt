@@ -1,0 +1,4 @@
+0|Arslan|19
+1|Allaguly|18
+3|Igor|18
+15|Sanek|19

@@ -1,4 +1,4 @@
-from api import read, add, delete, update
+from api import CRUD
 
 if __name__ == "__main__":
     pass
