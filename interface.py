@@ -1,5 +1,5 @@
 from api import CRUD, DataBaseManager
-        
+
 def dbm_menu():
     print("""
 ===========================================
@@ -24,7 +24,7 @@ def line():
 def crud_menu(db:str):
     print(f"""
 ===========================================
-| Выберите действие [{db}]:               |
+  Выберите действие [{db}]:               
 |    1. Добавить запись                   |
 |    2. Просмотреть записи                |
 |    3. Изменить запись                   |
@@ -58,7 +58,9 @@ def crud_menu(db:str):
                 if (cursor.delete(id)): print("Запись успешно удалена.")
                 else: print("[Ошибка] записи с указанным id не существует!")
 
-            case '5': break
+            case '5': 
+                dbm_menu()
+                break
             case _: print("Неверное значение")
 
 if __name__ == "__main__":
