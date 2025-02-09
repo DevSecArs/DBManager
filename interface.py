@@ -34,14 +34,14 @@ def crud_menu(db:str):
     """)
     cursor = CRUD(db)
     while True:
-        match (int(input("Ваш выбор: "))):
-            case 1:
+        match (input("Ваш выбор: ")):
+            case '1':
                 data = input("Введите данные через | (имя|возраст|и т.д.):\n").strip()
                 cursor.create(data)
                 print("Запись добавлена.")
-            case 2: 
+            case '2': 
                 cursor.read()
-            case 3: 
+            case '3': 
                 try:
                     id = int(input("Введите id: "))
                 except ValueError:
@@ -49,7 +49,7 @@ def crud_menu(db:str):
                     continue
                 if (cursor.update(id, input("Введите новые данные через |:\n"))): print("Данные успешно изменены.")
                 else: print("[Ошибка] записи с указанным id не существует!")
-            case 4: 
+            case '4': 
                 try:
                     id = int(input("Введите id: "))
                 except ValueError:
@@ -58,8 +58,8 @@ def crud_menu(db:str):
                 if (cursor.delete(id)): print("Запись успешно удалена.")
                 else: print("[Ошибка] записи с указанным id не существует!")
 
-            case 5: break
-            case _: pass
+            case '5': break
+            case _: print("Неверное значение")
 
 if __name__ == "__main__":
     # Приветствие
@@ -67,15 +67,15 @@ if __name__ == "__main__":
 
     dbm = DataBaseManager()
     while True:
-        match (int(input("Ваш выбор: "))):
-            case 1:
+        match (input("Ваш выбор: ")):
+            case '1':
                 # Создать БД
                 name = input("Введите название: ")
                 print(f"[{name}] успешно создана!") if (dbm.create(name)) else print(f"[{name}] уже существует!")
-            case 2:
+            case '2':
                 # Вывести список БД
                 dbm.read()
-            case 3:
+            case '3':
                 # Удалить БД
                 dbm.read()
                 name = input("Введите название: ")
@@ -83,7 +83,7 @@ if __name__ == "__main__":
                     if (dbm.delete(name)): print(f"[{name}] успешно удалена.")
                     else: print("[Ошибка] Неверное имя базы данных!")
                 else: print("Отмена.")
-            case 4:
+            case '4':
                 # Выбрать БД
                 dbm.read()
                 name = input("Введите название: ")
@@ -93,8 +93,8 @@ if __name__ == "__main__":
                     print("[Ошибка] Неверное имя базы данных!")
             
             # Выход и обработка неверного ввода
-            case 5:
+            case '5':
+                print("Выход...")
                 break
-            case _:
-                pass
+            case _: print("Неверное значение")
         line()
