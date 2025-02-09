@@ -35,7 +35,8 @@ class CRUD:
     def get_line(self, id:int):
         with open(f"{self.db}.txt", "r", encoding="utf-8") as file:
             line = "".join([str(line) for line in file.readlines() if str(id) in line.split("|")[0]])
-            return line
+            if (line): return line
+            else: return False
         
     # ========== Основа ============ #
 
@@ -53,16 +54,21 @@ class CRUD:
 
     def update(self, id:int, new_line:str):
         old_line = self.get_line(id)
+        if (not old_line): return False
         self.replace(f"{self.db}.txt", old_line, f"{id}|{new_line}\n")
+        return True
 
     def delete(self, id:int):
         old_line = self.get_line(id)
+        if (not old_line): return False
         self.replace(f"{self.db}.txt", f"{old_line}", "")
+        return True
 
 
 """ Класс для управления базами данных """
 class DataBaseManager:
     
+    @staticmethod
     def exists(name:str):
         if (isfile(f"{name}.txt")): return True
         else: return False
