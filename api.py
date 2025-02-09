@@ -48,9 +48,12 @@ class CRUD:
     def read(self, id:int = -1):
         with open(f"{self.db}.txt", "r", encoding="utf-8") as file:
             if (id < 0):
-                [print(line, end="") for line in file.readlines()]
+                lines = [line for line in file.readlines()]
             else:
-                [print(line, end="") for line in file.readlines() if str(id) in line.split("|")[0]]
+                lines = [line for line in file.readlines() if str(id) in line.split("|")[0]]
+
+            if (lines): [print(line, end="") for line in lines]
+            else: print(f"База {self.db} пуста.")
 
     def update(self, id:int, new_line:str):
         old_line = self.get_line(id)
@@ -86,7 +89,8 @@ class DataBaseManager:
     def read():
         filenames = next(walk("./"), (None, None, []))[2]
         databases = [db[:db.rfind(".")] for db in filenames if ".txt" in db]
-        print("Существующие базы данных:", *databases, sep="\n\t- ")
+        if (databases): print("Существующие базы данных:", *databases, sep="\n\t- ")
+        else: print("Базы данных отсутствуют.")
 
     """ Обновление структуры базы данных """
     @staticmethod
